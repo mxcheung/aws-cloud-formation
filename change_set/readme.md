@@ -12,7 +12,14 @@ aws cloudformation create-change-set \
   --template-body file://template.yaml \
   --resources-to-import '[{"ResourceType":"AWS::DynamoDB::Table","LogicalResourceId":"ImportedTable","ResourceIdentifier":{"TableName":"existing-table-name"}}]'
 ```
+# describe change set
+you can describe the change set to review the changes before executing it.
+```
+aws cloudformation describe-change-set \
+  --change-set-name import-change-set \
+  --stack-name your-stack-name
 
+```
 # execute change set
 ```
 aws cloudformation execute-change-set \
