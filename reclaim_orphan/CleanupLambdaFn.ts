@@ -21,3 +21,9 @@ fn.addToRolePolicy(new iam.PolicyStatement({
   ],
   resources: ["*"], // Or specify the exact repo ARN
 }));
+
+const myRole = new iam.Role(this, 'MyInvokingRole', {
+  assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+});
+
+deleteEcrRepoLambda.grantInvoke(myRole);
