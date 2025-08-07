@@ -43,4 +43,16 @@ export class EcrCleanupStack extends cdk.Stack {
         service: 'ECR',
         action: 'deleteRepository',
         parameters: {
-          repositoryName: ecrR
+          repositoryName: ecrRepoName,
+          force: true,
+        },
+        physicalResourceId: cr.PhysicalResourceId.of(`delete-${ecrRepoName}`),
+      },
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ 
+        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE, 
+        // or you can scope to specific resources
+      }),
+      role: customResourceRole,
+    });
+  }
+}
